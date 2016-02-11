@@ -1,0 +1,152 @@
+.modal-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #000;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    opacity: .5 !important;
+}
+
+.modal-backdrop.in {
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+.modal-backdrop.fade {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.modal {
+    display: none;  
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+}
+
+.modal-dialog {
+    top:100px;
+    position: relative;
+    width: 600px;
+    height: 500px;
+    margin: 100px;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    outline: 0;
+    height: 250px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+.modal-body {
+    position: relative;
+    /* padding: 15px; */
+}
+
+.modal-header {
+    /* min-height: 16.42857143px; */
+    /* padding: 15px; */
+    /* border-bottom: 1px solid #e5e5e5; */
+}
+
+.modal-body {
+    position: relative;
+    height: 200px;
+    /* padding: 15px; */
+}
+
+.modal-footer {    
+    padding: 5px 20px 20px;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+.modal-start .modal-dialog{
+    margin-left: 36%;
+    margin-top: 18%;
+    width: 300px;
+    height: 300px;
+}
+
+
+.modal-end .modal-dialog{
+  margin-left: 20%;
+  margin-top: 60px;
+  top:0px;
+  height: 95%;
+  width: 780px;
+}
+
+.modal-start .modal-content {
+    height:240px;
+}
+
+.modal-end .modal-content{
+  height: 95% !important;
+}
+
+.modal-end .modal-body{
+  height: 97% !important;
+}
+
+.modal-start .loader {
+     margin-top: 100px;
+}
+
+.btnClose {
+    background: url("/images/mc/mc-lead-sprite-v1.png") no-repeat -9px -356px;
+    width: 23px;
+    height: 23px;
+    border: none;
+    float: right;
+    position: absolute;
+    right: 15px;
+}
+
+.btnClose:hover{
+    background: url("/images/mc/mc-lead-sprite-v1.png") no-repeat -9px -384px;
+    width: 23px;
+    height:23px;
+}
+
+.modal-enlarge {
+     -webkit-transition: -webkit-transform 2s ease-out;
+    -o-transition: -o-transform 2s ease-out;
+    transition: transform 2s ease-out;
+    -webkit-transform: scale(1,1);
+    -ms-transform:  scale(1,1);
+    -o-transform: scale(1,1);
+    transform: scale(1,1);
+}

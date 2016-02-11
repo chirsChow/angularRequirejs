@@ -1,0 +1,87 @@
+﻿ <div class="reportGridFilters">
+        <form method="get" action="/widget" id="craigslistReportForm">
+            <fieldset>
+                <div class="sideways-left">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedGroup"
+                            ng-model="model.selectedGroup"
+                            ng-options="group as group.entityGroupName for group in groups track by group.id"
+                            ng-change="groupReport()">
+                        <option value="">Select a Group</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    |
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedState"
+                            ng-model="model.selectedState"
+                            ng-change="stateReport()"
+                            ng-options="property as property.state_name for property in stateProperties | unique: 'state_name'">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedCity"
+                            ng-model="model.selectedCity"
+                            ng-change="cityReport()"
+                            ng-options="property as property.city_name for property in cityProperties | unique: 'city_name'">
+                        <option value="">All Cities</option>
+                    </select>
+                </div>
+                <div class="sideways-left">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedProperty"
+                            ng-model="model.selectedProperty"
+                            ng-change="propertyReport()"
+                            ng-options="property as property.property_name for property in properties track by property.property_id" ng-init"selectedProperty='All Properties'">
+                    <option value="">All Properties</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <input type="button" value="Reset"  class="reset-button" ng-click="resetAll()"/>
+                </div>
+
+                    <div class="sideways-left" ng-show="reportType=='postings' " >
+                    <label class="propery-key"> </label>
+                    <div class="verifiedPosts">
+                        <input type="checkbox" ng-model="model.showVerified" ng-click="showVerifiedPosts()" value="checkbox" id="showVerifiedPosts">
+                        <span class="showPosts">show only verified posts</span>
+                    </div>
+                </div>
+
+                <div class="sideways-right">
+                    <label class="date-range">Date Range</label>
+                    <select class="ajaxCall" id="clReportDateRanges"
+                         ng-model="model.dateRange"
+                         ng-change="generateReport()" 
+                         ng-options="dtRange as dtRange.name for dtRange in dateRanges track by dtRange.value">
+                    </select>
+                </div>
+            </fieldset>
+            <div class="customDv">
+                <div ng-if="model.dateRange.name === 'Custom'" class="customCal" style="height: 20px;">
+                     <div id="go" style="float:right;">
+                        <input type="button" value="Go" ng-click="customDateReport()" />
+                    </div>
+                    <div  style="float:right;">
+                        <label class="div-label">To:
+                            <input type="text" id="endDate" name="endDate" readonly="readonly" onclick="MNP.Cal.show(this)" size="20" maxlength="10">
+                            <span onclick="MNP.Cal.show(this)" class="mnpCal">&nbsp;</span>
+                         </label>
+                    
+                    </div>
+                      <div  style="float:right;">
+                        <label class="div-label">From: 
+                        <input type="text" id="startDate" name="startDate" readonly="readonly" onclick="MNP.Cal.show(this)" size="20" maxlength="10">
+                        <span onclick="MNP.Cal.show(this)" class="mnpCal">&nbsp;</span>
+                            </label>
+                          </div>
+                </div>
+         </div>
+        </form>
+    </div>

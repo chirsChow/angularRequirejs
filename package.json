@@ -1,0 +1,44 @@
+{
+  "name": "leaseStar",
+  "description": "leaseStar.ui project",
+  "version": "0.0.1",
+  "bootstrap-module": "leaseStar",
+  "main": "index.html",
+  "sourceDir": "Angular",
+  "scripts": {
+    "start": "node restore.js"
+  },
+  "engines": {
+    "node": "= 0.10.26"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.6",
+    "grunt": "~0.4.4",
+    "grunt-config-dir": "~0.3.2",
+    "grunt-contrib-clean": "~0.7.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "~0.8.2",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-less": "~1.1.0",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-uglify": "^0.11.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-html2js": "^0.3.5",
+    "grunt-injector": "~0.6.1",
+    "grunt-karma": "~0.12.1",
+    "grunt-replace": "^0.11.0",
+    "jasmine-core": "~2.4.1",
+    "karma": "~0.13.19",
+    "karma-chrome-launcher": "~0.2.2",
+    "karma-coverage": "~0.5.3",
+    "karma-jasmine": "~0.3.6",
+    "karma-junit-reporter": "~0.3.8",
+    "karma-ng-html2js-preprocessor": "^0.2.0",
+    "karma-requirejs": "~0.2.4",
+    "load-grunt-tasks": "~0.4.0",
+    "lodash": "~4.0.1",
+    "q": "~1.4.1",
+    "requirejs": "~2.1.22"
+  },
+  "dependencies": {}
+}

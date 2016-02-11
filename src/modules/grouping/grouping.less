@@ -1,0 +1,249 @@
+.grouping {
+    .main-wrapper {
+        height: 100%;
+    }
+
+    .busy-indicator {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0%;
+        width: 100%;
+        background-color: white;
+        z-index: 1001;
+        -moz-opacity: 0.8;
+        opacity: .80;
+        filter: alpha(opacity=80);
+        text-align: center;
+        background: url(/images/common/loading.gif) center center no-repeat;
+        vertical-align: middle;
+        height: 50px;
+    }
+
+    .busy-indicator-message {
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    .groups a {
+        color: #3a95e1;
+        font-weight: bold;
+    }
+
+    .groups thead {
+        font-weight: bold;
+        text-decoration: none;
+        border-top: 1px solid #B9C5C9;
+        border-bottom: 1px solid #B9C5C9;
+    }
+
+    .groups th {
+        color: #3a95e1;
+    }
+
+    .groups td {
+        border-top: 1px solid #B9C5C9;
+        border-bottom: 1px solid #B9C5C9;
+    }
+
+    .selectHeader {
+        font-family: Verdana, Helvetica, sans-serif;
+        margin: 0 10px;
+        text-transform: uppercase;
+        color: #727C80;
+        text-shadow: 1px 1px 3px #ddd;
+    }
+
+    .tableInfo {
+        word-wrap: break-word;
+        font-family: 'Arial Italic', 'Arial';
+        font-weight: 400;
+        font-style: italic;
+        font-size: 9px;
+        float: right;
+        margin-top: 10px;
+    }
+
+    .assign-group-icon {
+        background: url("../../../../images/mc/mc-assign-sprites.png") no-repeat scroll -39px -99px;
+        cursor: pointer;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+    }
+
+    table tr:hover td .assign-group-icon {
+        background: url("../../../../images/mc/mc-assign-sprites.png") no-repeat scroll -10px -99px;
+        cursor: pointer;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+    }
+
+    .copy-group-icon {
+        background: url("../../../../images/mc/mc-pprofile-sprites.png") no-repeat scroll -145px -34px;
+        cursor: pointer;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+    }
+
+    table tr:hover td .copy-group-icon {
+        background: url("../../../../images/mc/mc-pprofile-sprites.png") no-repeat scroll -145px -2px;
+        cursor: pointer;
+        display: inline-block;
+        height: 24px;
+        width: 24px;
+    }
+
+    tip ul {
+        text-align: left;
+        width: 150px;
+        margin: 0px;
+        max-height: 300px;
+        overflow-y: auto;
+        font-size: 12px !important;
+    }
+
+        tip ul::-webkit-scrollbar {
+            width: 4px;
+            background-color: #fff;
+        }
+
+        tip ul::-webkit-scrollbar-thumb {
+            background-color: #747575;
+        }
+
+        tip ul::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #fff;
+        }
+
+    tip {
+        background-color: #F3F5F7 !important;
+        color: #151414 !important;
+        border: 1px solid #9C9EA0;
+        box-shadow: 4px 4px 8px #9C9EA0;
+    }
+
+        tip tip-arrow {
+            border-right: 6px solid #9C9EA0!important;
+        }
+
+    table tr:hover td .disableEditButton {
+        pointer-events: none;
+        background-position: -14px -352px;
+    }
+
+    table tr:hover td .disableDeleteButton {
+        pointer-events: none;
+        background-position: -40px -352px;
+    }
+
+    table tr:hover td .disableButton {
+        pointer-events: none;
+        background-position: -39px -99px;
+    }
+
+    .countBar {
+        text-align: right;
+        padding-right: 2%;
+        color: #3a95e1;
+        font-weight: bold;
+    }
+
+    .filterPanel {
+        height: 40px;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
+    .selectPanel {
+        padding-left: 2%;
+        padding-right: 2%;
+        padding-bottom: 2%;
+        height: 400px;
+    }
+
+        .selectPanel .centerPanel {
+            padding-left: 4%;
+            padding-right: 2%;
+            padding-top: 15%;
+            height: 100px;
+        }
+
+            .selectPanel .centerPanel a {
+                width: 120px;
+                text-align: center;
+            }
+
+    .submitPanel {
+        padding-top: 8%;
+        height: 40px;
+    }
+
+        .submitPanel div {
+            float: left;
+            margin-top: 0.8%;
+            margin-left: 2%;
+        }
+
+    .selectBox ul {
+        height: inherit;
+        list-style-type: none;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border: 1px solid rgb(169, 169, 169);
+        align-items: flex-start;
+        -webkit-appearance: listbox;
+        -moz-appearance: listbox;
+        font: 13.3333px Arial;
+        -webkit-padding-start: 0px;
+        -moz-padding-start: 0px;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+    .selectBox li {
+        min-height: 1.2em;
+        padding: 0px 2px 1px;
+    }
+
+        .selectBox li.selected {
+            background-color: #3295ff;
+            color: white;
+        }
+
+        .selectBox li.greySelected {
+            background-color: #C8C8C8;
+        }
+
+        .selectBox li span {
+            width: 90%;
+            float: left;
+            margin: 0px;
+            max-height: 1em;
+            white-space: nowrap !important;
+        }
+
+    .noselect {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .selectBox li input {
+        float: right;
+        margin: 0%;
+    }
+
+    .userDisabled {
+        color: rgba(180, 180, 180, 0.84);
+        text-shadow: -1px -1px 0px -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+}

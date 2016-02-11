@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <base href="/" />           
+</head>
+<body id="AngularApp" class="main-wrapper">
+    <div wait-indicator class="wait-indicator">
+        <div class="loader">
+            <img src="/images/common/loading.gif">
+            <div class="wait-indicator-message"><span>Please wait...</span></div>
+        </div>
+    </div>
+    <!-- injector:css -->
+    <!-- endinjector -->
+    <div ng-contoller="baseController">
+
+        <div ui-view></div>
+    </div>
+    <!-- injector:js -->
+    <!-- endinjector -->  
+
+    <script src="//localhost:9000/livereload.js"></script>
+     <script type="text/javascript">        
+         //function hideLoader() {
+         //    jQuery(".wait-indicator").hide();
+         //    jQuery(".modal").removeClass('modal-start');
+         //    jQuery(".modal").addClass('modal-end');
+         //    //$(".modal-dialog").addClass('modal-enlarge');
+         //    jQuery('#popupModal').contents().find('#cboxClose').css("display", "none");
+         //    jQuery('#popupModal').contents().find('body').css("background-color", "#fff");
+         //}
+    </script>
+</body>
+</html>

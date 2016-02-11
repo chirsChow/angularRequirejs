@@ -1,0 +1,30 @@
+﻿<div class="grid-results">
+    <div ng-hide="gridOptions.data.length"><span>{{noDataMsg}}</span></div>
+
+    <div ng-show="gridOptions.data.length">
+        <div ui-grid="gridOptions"  my-ui-grid-resize ui-grid-auto-resize ui-grid-exporter ui-grid-pagination class="grid craigslist-report-table"></div>
+    </div>
+    <div id="posting-times-report" ng-show="postingTimes.length > 0">
+        <table class="craigslist-report-table posting-times-table">
+            <thead>
+            <tr class="tr-row-header">
+                <td class="td-align">Day</td>
+                <td class="td-align">Time</td>
+                <td class="td-align">Posts</td>
+                <td class="td-align">Tracked Leads</td>
+                <td class="td-align">Tracked Leads/Post</td>
+                <td class="td-align">Clicks</td>
+                <td class="td-align">Clicks/Post</td></tr></thead>
+            <tbody>
+            <tr class="tr-row" ng-repeat="postingTime in postingTimes">
+                <td>{{postingTime.part_of_the_day =='Morning' ? postingTime.posting_day : '' }}</td>
+                <td><span class="{{postingTime.part_of_the_day}}-time"><em>{{postingTime.part_of_the_day}}</em></span><span class="title">{{postingTime.part_of_the_day}}</span></td>
+                <td>{{postingTime.no_of_posts}}</td>
+                <td>{{postingTime.leads}}</td>
+                <td>{{postingTime.leads_per_post}}</td>
+                <td>{{postingTime.clicks}}</td>
+                <td>{{postingTime.clicks_per_post}}</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

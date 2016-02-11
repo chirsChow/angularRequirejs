@@ -1,0 +1,24 @@
+<!--id="loading" class="loading"  style="visibility: hidden"-->
+<div>
+    <tab-panels tabs="tabs" activetab="activeTab"></tab-panels>
+    <div id="craigslistReportArea" class="grid_23 classified-reporting">
+        <div class="panel-header">
+            {{model.reportName}}
+            {{selectedFilters.group.id != 0 ? selectedFilters.group.entityGroupName : selectedFilters.property.property_name}}
+            <span class="right-top">{{startDateObj | date:'MMMM dd, yyyy'}} to {{endDateObj | date:'MMMM dd, yyyy'}}</span>
+        </div>
+        <grid-filters selected-filters="selectedFilters"></grid-filters>
+        <div id="dailyGraph" ng-show="chartEnabled"></div>
+        <div class="graph-legend" ng-show="chartEnabled">
+            <ul class="graph-legend-list">
+                <li><span class="key" style="background-color: #E69403"><em>key</em></span>Clicks
+                </li>
+                <li><span class="key" style="background-color: #61D5FA"><em>key</em></span>Leads
+                </li>
+            </ul>
+        </div>
+        <div class="width:10px;" ng-show="chartEnabled">&nbsp;</div>
+
+        <grid-results grid-options="gridOptions"></grid-results>
+    </div>
+</div>

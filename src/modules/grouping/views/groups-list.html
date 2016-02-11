@@ -1,0 +1,147 @@
+<div class="grouping">
+    <div style="padding: 5px;" class="user-manage clearfix grid_23 propertyArea" busy-indicator="main-progress">
+        <fieldset ng-show="tableLoad">
+            <div style="float: left; padding-right: 5px;">
+                <ul class="add-item clearfix">
+                    <li class="button add-icon"><a ng-click="createGroup()"><span class="decoration"><em>Create
+                    Group</em> </span><span>Create Group</span>
+                    </a></li>
+                </ul>
+            </div>
+            <div class="clearfix"
+                style="margin: 0.5em 0; text-align: left; font-style: italic; padding-left: 10px; padding-top: 8px; font-size: 80%; color: #000">
+                <div>
+                    Note: It is important to keep your groups up to date. If a property is no longer active in your
+                portfolio, you should remove it from any groups.
+                </div>
+            </div>
+
+            <div class="grid_23">
+                <div class="panel">
+                    <div class="panel-header">MANAGE PROPERTY GROUPS</div>
+                    <div>
+                        <table id="row" class="groups">
+                            <thead>
+                                <tr>
+                                    <th class="sortable"><a href="#" ng-click="sortBy = 'entityGroupName'; descending = !descending">Name</a></th>
+                                    <th class="sortable"><a href="#" ng-click="sortBy = 'entityIds.length'; descending = !descending"># of Properties</a></th>
+                                    <th class="sortable"><a href="#" ng-click="sortBy = 'entityOwnerName'; descending = !descending">Owner</a></th>
+                                    <th><a>Assigned To</a></th>
+                                    <th class="sortable"><a href="#" ng-click="sortBy = 'audit.createdTimeStamp'; descending = !descending">Date Created</a></th>
+                                    <th class="sortable"><a href="#" ng-click="sortBy = 'audit.modifiedTimeStamp'; descending = !descending">Date Modified</a></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody ng-show="groups.length > 0">
+                                <tr class="even" ng-repeat="group in groups | orderBy:sortBy:descending">
+                                    <td class="column-border-right">{{group.entityGroupName}}</td>
+                                    <td class="column-border-right">
+                                        <tooltip class="groups-tooltip" tooltips tooltip-template="{{group.propertiesTooltip}}" tooltip-side="right">
+                                    {{group.entityIds.length}}
+                                </tooltip>
+                                    </td>
+
+                                    <td class="column-border-right">{{group.entityOwnerName}}</td>
+                                    <td class="column-border-right">
+                                        <div ng-if="group.assignedUsers.length > 1">
+                                            <tooltip class="groups-tooltip" tooltips tooltip-template="{{group.assignedUserTooltip}}" tooltip-side="right">
+                                        {{group.assignedUsers.length > 1 ? 'Multiple' : group.assignedUsers[0].displayName}}
+                                    </tooltip>
+                                        </div>
+                                        <div ng-if="group.assignedUsers.length == 1">
+                                            {{group.assignedUsers[0].displayName}}
+                                        </div>
+
+                                    </td>
+                                    <td class="column-border-right">
+                                        <div>{{group.audit.createdTimeStamp | date: 'EEE MM/dd/yy'}}</div>
+                                    </td>
+                                    <td class="column-border-right">
+                                        <div>{{group.audit.modifiedTimeStamp | date:'EEE MM/dd/yy'}}</div>
+                                    </td>
+                                    <td class="floorplan-icons">
+                                        <span class="has-tooltip" title="Edit" ng-hide="isEditEligible($index)"><a class="disableEditButton addoredit-icon">
+                                            <span><em>edit</em></span></a></span>
+                                        <span class="has-tooltip" title="Edit" ng-show="isEditEligible($index)"><a class="addoredit-icon"
+                                            ng-click="editGroup(group)"><span><em>edit</em></span></a></span>
+
+                                        <span class="has-tooltip" title="Assign" ng-hide="isAssignEligible($index)"><a class="disableButton assign-group-icon">
+                                            <span><em>assign</em></span></a></span>
+                                        <span class="has-tooltip" title="Assign" ng-show="isAssignEligible($index)"><a class="assign-group-icon"
+                                            ng-click="assignGroup(group)"><span><em>assign</em></span></a></span>
+
+                                        <span class="has-tooltip" title="Delete" ng-hide="isEditEligible($index)"><a class="disableDeleteButton delete-icon">
+                                            <span><em>delete</em></span></a></span>
+                                        <span class="has-tooltip" title="Delete" ng-show="isEditEligible($index)"><a
+                                            onclick="javascript:jQuery().colorbox({inline:true, href:'#deleteGroup'});"
+                                            class="delete-icon"><span><em>delete</em></span></a></span>
+
+                                        <div style="display: none">
+                                            <div id="deleteGroup">
+                                                <div style="height: 25px; background: url(/images/mc/mc-nav-bg-sprite.png) repeat-x scroll 0 -160px transparent">
+                                                    <span
+                                                        class="cbox-craigslist-header">DELETE GROUP</span><span
+                                                            id="cboxClose"><em>close</em></span>
+                                                </div>
+                                                <div>
+                                                    <p class="delete-info">
+                                                        Are you sure you want to delete group:
+                                            {{group.entityGroupName}}
+                                                    </p>
+                                                    <ul class="action-button-bar clearfix delete-info">
+                                                        <li class="button cancel"><a onclick="jQuery.colorbox.close()">Cancel
+                                                        </a><span class="rounded-corner nw"><em>&nbsp;</em></span><span
+                                                            class="rounded-corner ne"><em>&nbsp;</em></span><span
+                                                                class="rounded-corner se"><em>&nbsp;</em></span><span
+                                                                    class="rounded-corner sw"><em>&nbsp;</em></span></li>
+                                                        <li class="button save last"><a
+                                                            ng-click="deleteGroup(group.id)">Delete
+                                                        </a><span class="rounded-corner nw"><em>&nbsp;</em></span><span
+                                                            class="rounded-corner ne"><em>&nbsp;</em></span><span
+                                                                class="rounded-corner se"><em>&nbsp;</em></span><span
+                                                                    class="rounded-corner sw"><em>&nbsp;</em></span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="display: none; text-align: left;" class="more-info-floorplan">
+                                    <td class="unit-data" colspan="9">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="text-align: center; padding-top: 2%; font-style: italic" ng-show="groups.length == 0">
+                            No property groups have been created. Click the Create Group button to create your first property group.
+                        </div>
+                    </div>
+                </div>
+                <span class="panel-tl">&nbsp;</span><span class="panel-tr">&nbsp;</span><span class="panel-bl">&nbsp;</span><span
+                    class="panel-br">&nbsp;</span>
+            </div>
+
+        </fieldset>
+    </div>
+    <div style="display: none">
+        <div ng-switch="$root.createGroupShow">
+            <div ng-switch-when="true">
+                <div id="createGroup" ng-include="'../../../angular/groups/views/createGroup.html'"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        <div ng-switch="$root.assignGroupShow">
+            <div ng-switch-when="true">
+                <div id="assignGroup" ng-include="'../../../angular/groups/views/assignGroup.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none">
+        <div ng-switch="$root.editGroupShow">
+            <div ng-switch-when="true">
+                <div id="editGroup" ng-include="'../../../angular/groups/views/editGroup.html'"></div>
+            </div>
+        </div>
+    </div>
+</div>

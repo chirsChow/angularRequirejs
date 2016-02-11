@@ -1,0 +1,145 @@
+<!--id="loading" class="loading"  style="visibility: hidden"-->
+<div busy-indicator="main-progress">
+    <div class="panel-header">{{reportName}}
+
+        {{isGroupSelected && selectedGroup.id != 0 ? selectedGroup.entityGroupName : selectedProperty.property_name}}
+        <span class="right-top">{{startDateObj | date:'MMMM dd, yyyy'}} to {{endDateObj|date:'MMMM dd, yyyy'}}</span>
+
+    </div>
+    <div id="reportFilters">
+        <form method="get" action="/widget" id="craigslistReportForm">
+            <fieldset>
+
+                <div class="sideways-left">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedGroup"
+                            ng-model="selectedGroup"
+                            ng-options="group as group.entityGroupName for group in groups track by group.id"
+                            ng-change="groupReport()">
+                        <option value="">Select a Group</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    |
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedState"
+                            ng-model="model.selectedState"
+                            ng-change="stateReport()"
+                            ng-options="property as property.state_name for property in properties | unique: 'state_name'">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedCity"
+                            ng-model="model.selectedCity"
+                            ng-change="cityReport()"
+                            ng-options="property as property.city_name for property in properties | unique: 'city_name'">
+                        <option value="">All Cities</option>
+                    </select>
+                </div>
+                <div class="sideways-left">
+                    <label class="propery-key">&nbsp;</label>
+                    <select name="selectedProperty"
+                            ng-model="selectedProperty"
+                            ng-change="propertyReport()"
+                            ng-options="property as property.property_name for property in properties track by property.property_id" ng-init"selectedProperty='All Properties'">
+                    <option value="">All Properties</option>
+                    </select>
+                </div>
+                <div class="sideways-left common-aln" ng-if="reportType == 'posting-summary'">
+                    <label class="propery-key">&nbsp;</label>
+                    <input type="button" value="Reset"  class="reset-button" ng-click="resetAll()"/>
+                </div>
+
+                    <div class="sideways-left" ng-show="reportType=='postings' " >
+                    <label class="propery-key"> </label>
+                    <div class="verifiedPosts">
+                        <input type="checkbox" ng-model="showVerified" ng-click="showVerifiedPosts()" value="checkbox" id="showVerifiedPosts">
+                        <span class="showPosts">show only verified posts</span>
+                    </div>
+                </div>
+
+
+
+                <div class="sideways-right">
+                    <label class="date-range">Date Range</label>
+                    <select class="ajaxCall" id="clReportDateRanges" ng-model="dateRange" ng-change="generateReport()" >
+                        <option value="7">Last 7 days</option>
+                        <option value="15">Last 15 days</option>
+                        <option value="30">Last 30 days</option>
+                        <option value="60">Last 60 days</option>
+                        <option value="90">Last 90 days</option>
+                        <option value="Last Month" id="Last Month">Last Month</option>
+                        <option value="Month To Date" id="Month To Date">Month To Date</option>
+                        <option value="Custom" id="Custom">Custom</option>
+                    </select>
+                </div>
+            </fieldset>
+            <div id="dailyGraph" ng-show="chartEnabled"></div>
+            <div class="graph-legend" ng-show="chartEnabled">
+                <ul class="graph-legend-list" >
+                    <li><span class="key" style="background-color:#E69403"><em>key</em></span>Clicks
+                    </li>
+                    <li><span class="key" style="background-color:#61D5FA"><em>key</em></span>Leads
+                    </li>
+                </ul>
+            </div>
+            <div class="width:10px;" ng-show="chartEnabled">&nbsp;</div>
+        </form>
+    </div>
+
+    <div id="customDv">
+        <div ng-show="dateRange == 'Custom'" class="customCal" style="height: 30px;">
+            <div id="go" style="float: right;">
+                <input type="button" value="Go" ng-click="customDateReport()" />
+            </div>
+            <div style="visibility: visible;float: right;">
+                <label class="div-label">To: </label>
+                <input type="text" ng-attr-id="{{'endDate-' + dpIndex}}" name="endDate" readonly="readonly" onclick="MNP.Cal.show(this)" size="20" maxlength="10">
+                <span onclick="MNP.Cal.show(this)" class="mnpCal">&nbsp;</span>
+            </div>
+            <div style="visibility: visible;float: right;">
+                <label class="div-label">From: </label>
+                <input type="text" ng-attr-id="{{'startDate-' + dpIndex}}" name="startDate" readonly="readonly" onclick="MNP.Cal.show(this)" size="20" maxlength="10">
+                <span onclick="MNP.Cal.show(this)" class="mnpCal">&nbsp;</span>
+            </div>
+            <div style="float: right;padding:5px 20px 0px 0px;" ng-show="msgStatus">
+                <span class="errorSt">{{validateMsg}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="noData"><span id="noData">{{noDataMsg}}</span></div>
+
+    <div ng-show="postingTimes.length == 0">
+        <div ng-show="!noData" ui-grid="gridOptions"  my-ui-grid-resize ui-grid-auto-resize ui-grid-exporter ui-grid-pagination class="grid craigslist-report-table"></div>
+    </div>
+    <div id="posting-times-report" ng-show="postingTimes.length > 0">
+        <table class="craigslist-report-table posting-times-table">
+            <thead>
+            <tr class="tr-row-header">
+                <td class="td-align">Day</td>
+                <td class="td-align">Time</td>
+                <td class="td-align">Posts</td>
+                <td class="td-align">Tracked Leads</td>
+                <td class="td-align">Tracked Leads/Post</td>
+                <td class="td-align">Clicks</td>
+                <td class="td-align">Clicks/Post</td></tr></thead>
+            <tbody>
+            <tr class="tr-row" ng-repeat="postingTime in postingTimes">
+                <td>{{postingTime.part_of_the_day =='Morning' ? postingTime.posting_day : '' }}</td>
+                <td><span class="{{postingTime.part_of_the_day}}-time"><em>{{postingTime.part_of_the_day}}</em></span><span class="title">{{postingTime.part_of_the_day}}</span></td>
+                <td>{{postingTime.no_of_posts}}</td>
+                <td>{{postingTime.leads}}</td>
+                <td>{{postingTime.leads_per_post}}</td>
+                <td>{{postingTime.clicks}}</td>
+                <td>{{postingTime.clicks_per_post}}</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

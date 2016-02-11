@@ -1,0 +1,141 @@
+<div style="height: 100%; width:100%" class="grouping">
+    <div ng-controller="AssignGroupController">
+        <div ng-init="init()" class="container_24" busy-indicator="main-progress">
+            <div style="height:25px;background:url(/images/mc/mc-nav-bg-sprite.png) repeat-x scroll 0 -160px transparent"><span
+                    class="cbox-craigslist-header">Assign to {{groupName}}</span><span
+                    id="cboxClose"><em>close</em></span>
+            </div>
+
+            <!----------------------------------------filter div---------------------------------------------------------->
+            <div class="filterPanel">
+                <span class="rightHeader">
+                    <div class="lead-filter-wrapper clearfix">
+                        <span class="lead-filter-container">
+                            <span style="padding-left: 2%">
+                               <select id="users" ng-model="selectRole" ng-change="filterByUserRole(selectRole)">
+                                   <option selected value="">All Roles</option>
+                                   <option ng-repeat="userRole in userRoles" value="{{userRole}}">{{userRole}}</option>
+                               </select>
+                            </span>
+                            <span style="padding-left: 2%;">
+                            |
+                            </span>
+                            <span style="padding-left: 2%;">
+                                <input type="text" size="30" id="filterText" ng-model="searchKeyword"
+                                       placeholder="Enter a keyword to filter names"
+                                       ng-change="filterByKeyword(searchKeyword)"/>
+                            </span>
+                        </span>
+                    </div>
+                </span>
+            </div>
+            <!----------------------------------------filter div ends------------------------------------------------------>
+
+            <div style="height:5px;padding-bottom:2%;padding-left:2%">
+                <span ng-bind="errorMessage" class="error"></span>
+            </div>
+
+            <!--------------------------------------users table div------------------------------------------------------->
+            <div class="selectPanel">
+
+                <!--------------------------------left select users------------------------------------>
+                <div class="grid_sub_9" style="height:inherit">
+                    <div style="height:5%">
+                        <label class="selectHeader">Users</label>
+                        <span class="tableInfo">(Number of total properties in the group that the user can access)</span>
+                    </div>
+                    <div style="height:95%">
+                        <select style="height:100%;width:100%" multiple ng-model="leftSelectContacts">
+                            <option ng-repeat="contact in contacts | orderBy:['-totalproperties','display_name']"
+                                    ng-attr-title="{{contact.disabled ? 'User does not have access to any property in the group.' : ''}}"
+                                    ng-disabled="contact.disabled ? true : false"
+                                    value="{{contact.contact_id}}">
+                                {{contact.display_name}}
+                                -
+                                {{contact.email_address}} ({{contact.totalproperties}})
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <!------------------------------left select users ends---------------------------------->
+
+                <div class="grid_sub_4 centerPanel">
+                    <ul class="add-item clearfix">
+                        <li class="button-responder-bar"><a ng-click="addSelected()"> <span>Add ></span></a>
+                        </li>
+                        <li class="button-responder-bar"><a ng-click="addAll()">
+                            <span>Add all >></span></a>
+                        </li>
+                        <li style="padding-top: 30%" class="button-responder-bar"><a
+                                ng-click="removeSelected()"><span>< Remove</span></a>
+                        </li>
+                        <li class="button-responder-bar"><a ng-click="removeAll()"> <span
+                                style="text-align: center"><< Remove all</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!------------------------------right select users---------------------------------->
+                <div class="grid_sub_10" style="height:inherit;">
+                    <div class="selectHeader" style="height:5%">
+                        <span style="float:left">
+                            Selected
+                        </span>
+                        <span style="float:right">
+                            Make Owner
+                        </span>
+                    </div>
+                    <div style="height:95%;width:100%;">
+                        <div id="selectBox" class="selectBox" style="height:100%;width:100%" ng-blur="blurOptions()" ng-focus="focusOptions()" tabindex="1">
+                            <ul>
+                                <li id="option$index" tabindex="$index+2" ng-class="liClass[$index]"
+                                    ng-repeat="contact in selectedContactsList | orderBy:['-totalproperties','display_name']"
+                                    ng-click='setModel(contact,$index,$event)'>
+                                    <span class="noselect">{{contact.display_name}}
+                                        -
+                                        {{contact.email_address}} ({{contact.totalproperties}})</span>
+                                    <input type="radio" name="entityOwnerSelect" id="radio_{{$index}}" title="Mark as Owner"
+                                           ng-value="contact.contact_id" ng-model="entityOwnerId"
+                                           ng-click="setEntityOwner(contact.contact_id)"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!------------------------------right select users ends---------------------------------->
+            </div>
+
+            <!--------------------------------------users table div ends-------------------------------------------------->
+
+            <div class="rightHeader">
+                <div class="lead-filter-wrapper clearfix countBar">
+                    {{selectedContactsList.length}} users
+                    selected
+                </div>
+            </div>
+
+            <!---------------------------------------Assign to users------------------------------------------------------->
+            <div class="submitPanel">
+
+                <ul class="action-button-bar clearfix">
+                    <li class="button save-form last"><a ng-click="assignUsers()"
+                                                         class="colorbox-confirm">Save</a><span
+                            class="rounded-corner nw"><em>&nbsp;</em></span><span class="rounded-corner ne"><em>
+                        &nbsp;</em></span><span
+                            class="rounded-corner se"><em>&nbsp;</em></span><span class="rounded-corner sw"><em>
+                        &nbsp;</em></span>
+                    </li>
+                    <li class="button cancel-form last"><a
+                            onclick="jQuery.colorbox.close()">Cancel</a><span
+                            class="rounded-corner nw"><em>&nbsp;</em></span><span class="rounded-corner ne"><em>
+                        &nbsp;</em></span><span
+                            class="rounded-corner se"><em>&nbsp;</em></span><span class="rounded-corner sw"><em>
+                        &nbsp;</em></span>
+                    </li>
+                </ul>
+            </div>
+            <!---------------------------------------Assign to users ends-------------------------------------------------->
+        </div>
+    </div>
+</div>
+

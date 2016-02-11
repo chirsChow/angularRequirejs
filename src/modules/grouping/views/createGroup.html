@@ -1,0 +1,131 @@
+<div style="height: 100%; width:100%" class="grouping">
+    <div ng-controller="CreateGroupController">
+        <div class="container_24" ng-init="init()" busy-indicator="main-progress">
+            <div style="height:25px;background:url(/images/mc/mc-nav-bg-sprite.png) repeat-x scroll 0 -160px transparent"><span
+                    class="cbox-craigslist-header">CREATE GROUP</span><span id="cboxClose"><em>close</em></span>
+            </div>
+
+         <!----------------------------------------filter div---------------------------------------------------------->
+            <div class="filterPanel">
+                <span class="rightHeader">
+                    <div class="lead-filter-wrapper clearfix">
+                            <span style="padding-left: 2%;">
+                                <select id="propState" ng-model="selectState" ng-change="filterByState(selectState)">
+                                    <option selected value="">Select State</option>
+                                    <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+                                </select>
+                            </span>
+                            <span style="padding-left: 2%;">
+                            |
+                            </span>
+                            <span style="padding-left: 2%;">
+                                <input type="text" size="30" id="filterText" ng-model="searchKeyword"
+                                       placeholder="Enter a keyword to filter properties"
+                                       ng-change="filterByKeyword(searchKeyword)"/>
+                            </span>
+                    </div>
+                </span>
+            </div>
+         <!-----------------------------------------filter div ends---------------------------------------------------->
+
+            <div style="height:5px;padding-bottom:2%;padding-left:2%">
+                <span ng-bind="errorMessage" class="error"></span>
+            </div>
+
+        <!-------------------------------------------properties table div---------------------------------------------->
+            <div class="selectPanel">
+
+             <!-----------------------------left select properties-------------------------------->
+                <div class="grid_sub_9" style="height:inherit">
+                    <div style="height:5%" class="selectHeader">
+                        Properties
+                    </div>
+                    <div style="height:95%">
+                        <select style="height:100%;width:100%" multiple ng-model="leftSelectProperties" id="leftProps">
+                            <option ng-repeat="prop in props" value="{{prop.property_id}}">
+                                {{prop.property_name}}
+                                -
+                                {{prop.city_name}},{{prop.state_code}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+             <!-------------------------left select properties ends---------------------------------->
+
+                <div class="grid_sub_4 centerPanel">
+                    <ul class="add-item clearfix">
+                        <li class="button-responder-bar"><a ng-click="addSelected()"> <span>Add ></span></a>
+                        </li>
+                        <li class="button-responder-bar"><a ng-click="addAll()">
+                            <span>Add all >></span></a>
+                        </li>
+                        <li style="padding-top: 30%" class="button-responder-bar"><a ng-click="removeSelected()"><span>< Remove</span></a>
+                        </li>
+                        <li class="button-responder-bar"><a ng-click="removeAll()"> <span
+                                style="text-align: center"><< Remove all</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+             <!-----------------right select properties---------------------------------------------->
+                <div class="grid_sub_9" style="float:right;height:inherit">
+                    <div class="selectHeader" style="height:5%">
+                        Selected
+                    </div>
+                    <div style="height:95%">
+                        <select style="height:100%;width: 100%" multiple ng-model="rightSelectProperties"
+                                id="rightProps" required>
+                            <option ng-repeat="prop in selectedPropertiesList" value="{{prop.property_id}}">
+                                {{prop.property_name}} - {{prop.city_name}},{{prop.state_code}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+             <!-----------------------right select properties ends---------------------------------------->
+            </div>
+        <!--------------------------------------------properties table div--------------------------------------------->
+
+            <div class="rightHeader">
+                <div class="lead-filter-wrapper clearfix countBar">
+                        {{selectedPropertiesList.length}} properties
+                        selected
+                </div>
+            </div>
+
+        <!--------------------------------------Save to a group--------------------------------------------------------->
+
+            <div class="submitPanel">
+                <div>
+                    Save Group as: <input type="text" size="20" name="groupName" ng-model="groupName"
+                                             placeholder="Enter a group name" ng-minlength="2" required/>
+                    <label ng-show="groupNameInvalid" class="error">*Please enter Group Name</label>
+                </div>
+                <ul class="action-button-bar clearfix">
+                    <li class="button save-form last"><a ng-click="createGroup()"
+                                                         class="colorbox-confirm">Save</a><span
+                            class="rounded-corner nw"><em>&nbsp;</em></span><span class="rounded-corner ne"><em>
+                        &nbsp;</em></span><span
+                            class="rounded-corner se"><em>&nbsp;</em></span><span class="rounded-corner sw"><em>
+                        &nbsp;</em></span>
+                    </li>
+                    <li ng-show="$root.assignUserPrivilege" class="button save-form last"><a ng-click="createAndAssignGroup()"
+                                                    class="colorbox-confirm">Save
+                        & Assign</a><span
+                            class="rounded-corner nw"><em>&nbsp;</em></span><span class="rounded-corner ne"><em>
+                        &nbsp;</em></span><span
+                            class="rounded-corner se"><em>&nbsp;</em></span><span class="rounded-corner sw"><em>
+                        &nbsp;</em></span>
+                    </li>
+                    <li class="button cancel-form last"><a onclick="jQuery.colorbox.close()">Cancel</a><span
+                            class="rounded-corner nw"><em>&nbsp;</em></span><span class="rounded-corner ne"><em>
+                        &nbsp;</em></span><span
+                            class="rounded-corner se"><em>&nbsp;</em></span><span class="rounded-corner sw"><em>
+                        &nbsp;</em></span>
+                    </li>
+                </ul>
+            </div>
+         <!--------------------------------------Save to a group ends-------------------------------------------------->
+        </div>
+    </div>
+</div>
+
